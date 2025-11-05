@@ -1,0 +1,171 @@
+CSCI-GA 3520: Honors Analysis of Algorithms
+
+Final Exam: Thu, Dec 22 2016, Room WWH-101, 10:00-2:00pm.
+
+• This is a four hour exam. There are six questions, worth 10 points each. Answer all questions
+
+and all their subparts.
+
+• This is a closed book exam. No books, notes, reference material, either hard-copy, soft-copy
+
+or online, is allowed.
+
+• In the past years, to pass this exam, one needed to answer 3 or 4 problems well, instead of
+
+answering all the problems poorly.
+
+• Please print your name and SID on the front of the envelope only (not on the exam booklets).
+Please answer each question in a separate booklet, and number each booklet according to the
+question.
+
+• Read the questions carefully. Keep your answers legible, and brief but precise. Assume
+
+standard results.
+
+• You must prove correctness of your algorithm and prove its time bound unless
+stated otherwise. The algorithm can be written in plain English (preferred) or
+as a pseudo-code.
+
+Best of luck!
+
+1
+
+Problem 1
+Let A[0], A[1], . . . , A[n − 1] be an array of nonnegative integers and assume that 0 (cid:54) A[i] < n for
+all 0 (cid:54) i < n. Give a O(n) time sorting algorithm with input array A that returns (a possibly
+diﬀerent) array with values in non-decreasing order.
+Now assume that 0 (cid:54) A[i] < n3 for all 0 (cid:54) i < n. Again give a O(n) time sorting algorithm with
+input array A that returns (a possibly diﬀerent) array with values in non-decreasing order.
+
+In both cases, you must describe the algorithm and argue its correctness and running time.
+
+Problem 2
+
+A 3-coloring of an undirected graph G(V, E) is a map ψ : V → {Red, Blue, Green}, i.e. each vertex
+is assigned one of the three colors. Given a 3-coloring ψ, an edge {u, v} ∈ E is said to be properly
+colored if ψ(u) (cid:54)= ψ(v), i.e. if the endpoints of the edge receive diﬀerent colors.
+
+Let n be the number of vertices and m be the number of edges in the graph. Show that
+there exists a 3-coloring ψ : V → {Red, Blue, Green} such that at least 2m
+edges are properly
+3
+colored. Give a polynomial time algorithm (deterministic or randomized) that ﬁnds a 3-coloring
+ψ : V → {Red, Blue, Green} such that at least 2m
+
+3 edges are properly colored.
+
+Problem 3
+
+Let G(V, E) be a directed graph with non-negative weights on the edges. Assume adjacency list
+representation of the graph. State (do not describe, prove, or analyze) what Dijkstra’s shortest
+path algorithm achieves and what its running time is. Now solve the following problem.
+
+Tucker, who lives at a node s of a directed graph G(V, E) with non-negative weights on the edges, is
+invited to an exciting party located at a node t, where he will meet the girl of his dreams, Sharona.
+Naturally, Tucker wants to get from s to t as soon as possible, but he is told to buy some beer
+on the way over. He can get beer at any supermarket, and the supermarkets form a subset of the
+vertices B ⊆ V . Thus, starting at s, he must go to some node b ∈ B of his choice, and then head
+from b to t, using the shortest overall route possible (assume he wastes no time at the supermarket).
+
+Show how Tucker can ﬁnd the shortest route using Dijkstra’s algorithm. For full credit, the running
+time of his algorithm should be of the same order as that of Dijkstra’s algorithm.
+
+2
+
+Problem 4
+
+Consider the following algorithm (the print operation prints a single # sign; the operation x ← 2x
+doubles the value of the variable x).
+
+For k = 1 to n {
+x = k
+While x < n {
+
+Print #
+x ← 2x
+
+}
+
+}
+
+How many (exact value) # signs are printed during the execution of the inner While loop as a
+function of k and n?
+
+Write the total number of # signs printed during the execution of the entire algorithm as a sum.
+Show that the sum, asymptotically as a function of n, is Θ(n). Note that you have to show that
+the sum is at least Ω(n) as well as at most O(n).
+
+Problem 5
+
+We have a list of n jobs (J1, J2, . . . , Jn) such that executing the ith job on a single machine takes ti
+units of time. We have k machines that can work in parallel and our goal is to schedule (assign) the
+jobs onto machines so as to complete all jobs as soon as possible. However we do have one constraint:
+jobs assigned to any machine must be a consecutive subsequence of the list (J1, J2, . . . , Jn).
+
+Here is an example. Suppose n = 10 and k = 4. A feasible schedule could be
+
+(J1, J2, J3),
+
+(J4),
+
+(J5, J6, J7, J8),
+
+(J9, J10).
+
+The four groups are assigned to the four machines respectively, which take time
+
+t1 + t2 + t3,
+
+t4,
+
+t5 + t6 + t7 + t8,
+
+t9 + t10,
+
+respectively. Thus all jobs are completed in time
+
+max{t1 + t2 + t3,
+
+t4,
+
+t5 + t6 + t7 + t8,
+
+t9 + t10}.
+
+Design a dynamic programming based algorithm that runs in time polynomial in n and k and ﬁnds
+a schedule with minimum completion time.
+
+3
+
+Problem 6
+
+Recall that a 3CNF formula φ consists of n boolean variables x1, . . . , xn and m clauses where each
+clause is a logical OR of three literals. A literal is a variable xi or its negation xi. Recall that
+
+3SAT = {φ | φ is a 3CNF formula that has an assignment satisfying all clauses}.
+
+In a Non-mixed-3CNF formula, each clause may have one, two, or three literals, and in each clause,
+either all variables appear in un-negated form or all variables appear in negated form. That is,
+each clause is of one of the following types:
+
+xi,
+
+xi,
+
+xi ∨ xj,
+
+xi ∨ xj,
+
+xi ∨ xj ∨ xk,
+
+xi ∨ xj ∨ xk.
+
+Let
+
+Non mixed 3SAT = {φ | φ is a Non-mixed-3CNF formula that has an assignment satisfying all clauses}.
+
+Show that Non mixed 3SAT is NP-complete. You can give a reduction from 3SAT.
+
+4
+
+

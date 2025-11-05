@@ -1,0 +1,219 @@
+G22.3520: Honors Analysis of Algorithms
+
+Final Exam, Dec 23, 2009, 12:30-4:00pm
+
+• This is a three and a half hour exam.
+
+• There are six questions, worth 10 points each. Answer all questions and all their subparts.
+
+• Your answer to a subpart of a question may use (without repeating) your answer to a previous
+
+subpart.
+
+• Please print your name and SID on the front of the envelope only (not on the exam booklets).
+
+• Please answer each question in a separate booklet, and number each booklet according to the
+
+question.
+
+• Read the questions carefully. Keep your answers legible, and brief but precise.
+
+• Assume standard results, unless asked otherwise.
+
+Best of luck!
+
+1
+
+Problem 1
+
+Let G = (V, E) be a directed acyclic graph where edges are assigned non-negative weights. You
+can assume that V = {v1, v2, . . . , vn} and if (vi, vj) ∈ E then i < j. Let the weight of edge (vi, vj)
+be denoted as wij. The weight of a (directed) path in the graph is deﬁned as the product of the
+weights of all the edges on that path. Assume an adjacency list representation of G.
+
+1. Give O(|V | + |E|) time algorithm to compute the sum of the weights of all paths from v1 to
+
+vn.
+
+2. Let 1 < i0 < n be a ﬁxed index. Give O(|V | + |E|) time algorithm to compute the sum of
+
+the weights of all paths from v1 to vn passing through vi0.
+
+3. Let 1 < i0 < j0 < n be two ﬁxed indices. Give O(|V | + |E|) time algorithm to compute the
+sum of the weights of all paths from v1 to vn passing through vi0 but not passing through vj0.
+
+Problem 2
+
+A Non-deterministic Finite Automaton N is a 5-tuple N = (Q, Σ, qs, F, δ) where Q is a ﬁnite set
+of states, Σ is a ﬁnite alphabet, qs ∈ Q is the start state, F ⊆ Q is the set of accept states, and
+δ : Q × Σ (cid:55)→ P(Q) is the transition function. The language accepted by an NFA N is denoted as
+L(N ). A Deterministic Finite Automaton is an NFA as above except that the transition function
+is δ : Q × Σ (cid:55)→ Q.
+
+1. Given two NFAs N1 = (Q1, Σ, qs
+
+1, F1, δ1) and N2 = (Q2, Σ, qs
+
+2, F2, δ2), show how to construct
+
+an NFA N such that the set of its states is Q1 × Q2 and L(N ) = L(N1) ∩ L(N2).
+
+2. Given an NFA N = (Q, Σ, qs, F, δ), show how to construct a DFA D such that L(D) = L(N ).
+
+3. Given an NFA N = (Q, Σ, qs, F, δ), show how to construct an NFA N (cid:48) such that L(N (cid:48)) =
+
+L(N ) where L(N ) denotes the complement of the language L(N ).
+
+Note:
+
+• P(X) denotes the power set of X, i.e. the set of all subsets of X.
+
+• The cartesian product of two sets X and Y is deﬁned as X × Y := {(x, y) | x ∈ X, y ∈ Y }.
+
+• The deﬁnition of NFA above does not allow the so-called ε-moves. So ignore ε-moves.
+
+• Proofs of correctness are not necessary. Give a formal description of NFAs/DFAs that you
+
+may construct. Partial credit will be given to description in words.
+
+2
+
+Problem 3
+
+Note that a tree is a connected graph with no cycles. Show that for any tree T with 2n + 1 vertices,
+there exists a vertex v ∈ T such that after removing v (and all edges incident on it), each connected
+component of T \ {v} has at most n vertices.
+
+Hint: A simple greedy-style strategy actually ﬁnds such a vertex.
+
+Problem 4
+
+We need to maintain a collection C of rooted trees such that the following operations can be
+implemented eﬃciently:
+
+• BREAK: Given a tree T ∈ C, remove T from the collection C. Delete its root and add all the
+subtrees of the root as (distinct) trees in the collection C. The root is also added to C as a
+single-node tree. The cost of this operation is k if k was the degree of the root.
+
+• UNION: Given two distinct trees T1, T2 ∈ C, remove them from C, construct a tree T whose
+set of nodes is the union of the sets of nodes of T1 and T2, and then add T to collection C.
+The cost of this operation is 1.
+
+Assume that initially C consists of n single-node trees.
+
+1. Give an implementation that ensures that for any tree T in the collection, the height of T
+is at most O(log |T |) where |T | is the number of nodes in T . You need to describe how to
+implement the UNION operation and prove that the upper bound on the height works.
+
+Assume that the height of a single node tree is zero.
+
+2. Prove that for a sequence of m BREAK and UNION operations, the total cost is O(m + n).
+
+Problem 5
+
+A directed Hamiltonian cycle in an n vertex directed graph is a directed cycle containing exactly n
+edges that includes every vertex exactly once. You can assume that the DIRECTED HAMILTO-
+NIAN CYCLE (DHC) problem is NP-complete:
+
+DHC :=
+
+(cid:110) (cid:10)G(cid:48)(cid:11) | G(cid:48)(V (cid:48), E(cid:48)) is a directed graph that has a directed Hamiltonian cycle
+
+(cid:111)
+.
+
+An edge coloring of a directed graph G(V, E) is a map π : E (cid:55)→ {Red, Blue}. Let the AMERICAN
+HAMILTONIAN CYCLE problem (AHC) be the following:
+
+AHC :=
+
+(cid:110)
+
+(cid:104)G, π(cid:105) | G(V, E) is a directed graph with an even number of vertices along with
+
+an edge coloring π and G has a directed Hamiltonian cycle with no
+
+two consecutive edges of the same color
+
+(cid:111)
+.
+
+Show that AHC is NP-complete.
+
+3
+
+Problem 6
+
+Part I:
+
+Suppose z ∈ {0, 1}k and zi denotes the ith bit of z. For a subset S ⊆ {1, 2, . . . , k}, S (cid:54)= ∅, let
+
+fz(S) :=
+
+(cid:77)
+
+i∈S
+
+zi.
+
+In words, fz(S) is the XOR of all bits of z in the subset S. Now think of z ∈ {0, 1}k as a string
+chosen uniformly at random (i.e. every bit of z is independently set to 0 or 1 with probability 1
+2
+each). Answer the following questions along with a justiﬁcation.
+
+1. Fix a subset S ⊆ {1, 2, . . . , k}, S (cid:54)= ∅. What are the following probabilities?
+
+Prz [fz(S) = 0] ,
+
+Prz [fz(S) = 1] .
+
+2. Fix two distinct subsets S, T ⊆ {1, 2, . . . , k}, S (cid:54)= ∅, T (cid:54)= ∅, S (cid:54)= T . What are the following
+
+probabilities?
+
+Prz [fz(S) = 0 and fz(T ) = 0] ,
+
+Prz [fz(S) = 0 and fz(T ) = 1] ,
+
+Prz [fz(S) = 1 and fz(T ) = 0] ,
+
+Prz [fz(S) = 1 and fz(T ) = 1] .
+
+Part II:
+
+Let G(V, E) be an undirected graph where |V | = n = 2k − 1 and V is identiﬁed with the set of all
+non-empty subsets of {1, 2, . . . , k}, i.e.
+
+V := {S | S ⊆ {1, 2, . . . , k}, S (cid:54)= ∅}.
+
+For any choice of z ∈ {0, 1}k, we get as above a function fz(·) : V (cid:55)→ {0, 1} which can be thought
+of as a partition of V into two parts. Let CUT[fz] denote the number of edges of G(V, E) that are
+cut by this partition. Prove that
+
+where Ez[·] denotes the expectation over the random choice of z.
+
+(cid:104)
+
+Ez
+
+CUT[fz]
+
+(cid:105)
+
+=
+
+|E|
+2
+
+.
+
+Part III:
+
+Using Part II or otherwise, design a deterministic polynomial (in n) time algorithm that ﬁnds a
+partition of the graph G(V, E) that cuts at least |E|
+
+2 edges (the graph is as in Part II).
+
+4
+
+

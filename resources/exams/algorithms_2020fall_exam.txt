@@ -1,0 +1,227 @@
+CSCI-GA.3520-001: Honors Analysis of Algorithms
+
+Final Exam, Dec 18, 2020, 9:30am-1:45pm
+
+• This is a four hour exam (plus 15 minutes to upload solutions). There are six questions,
+
+worth 10 points each. Answer all questions and all their subparts.
+
+• You can only use course notes. No access is allowed to textbooks, any other written or
+
+published materials, any online materials, and any other materials stored on devices.
+
+• In the past years, to pass this exam, one needed to answer 3 or 4 problems well, instead of
+
+answering all the problems poorly.
+
+• You must submit separate answers for separate questions.
+
+• Read the questions carefully. Keep your answers legible, and brief but precise. Assume
+standard results and algorithms (i.e., those taught or referred to in class or homeworks).
+
+• You must prove correctness of your algorithm and prove its time bound unless stated other-
+
+wise. The algorithm can be written in plain English (preferred) or as a pseudo-code.
+
+• The instructor will be available during the exam on Zoom if you have any questions (you can
+
+login the same way that you login for the lectures).
+
+• Emergency only:
+
+Only if you have trouble accessing or submitting on Gradescope, you can ask the instructor
+for the exam or submit solutions by email (khot@cs.nyu.edu or sak12@nyu.edu).
+
+Best of luck!
+
+1
+
+Problem 1
+
+Consider the following load balancing problem. There are n packages of weights w1, w2, . . . , wn.
+Each weight is a positive integer. Let W = (cid:80)n
+i=1 wi. The goal is to distribute the packages among
+three trucks, Ta, Tb, and Tc, so as to minimize the maximum load (weight) on any one truck.
+Give an O(nW 2) time algorithm to determine the smallest possible maximum load (partial credit
+for a less eﬃcient algorithm that still runs in time polynomial in n and W ).
+Note that if the load on Ta is La, and the load on Tb is Lb, then the load on Tc is W − (La + Lb).
+
+Problem 2
+
+Recall that in a 2–3 tree (a) an insertion may cause a split of an internal node and (b) a deletion may
+cause a transfer of child(ren) among sibling nodes or may cause a merge of sibling nodes. Moreover
+the split or the merge operations may propagate upwards. In this problem, we are concerned about
+the number of splits (during insertion) or merges (during deletion) that propagate upwards.
+
+1. Show a 2–3 tree T storing n items, and an arbitrarily long sequence of alternating inserts and
+
+deletes which each cause Θ(log n) splits and merges respectively.
+
+2. Now consider 2–6 trees. Like 2–3 trees, all leaves are at the same depth, and each internal
+node has between 2 and 6 children. A node is split when it gets 7 children, and a node that
+is reduced to having only one child either takes some children from an adjacent sibling or is
+merged with an adjacent sibling.
+
+Show that with an appropriate rule for handling merges and child transfers, any sequence
+of insert and delete operations applied to an initially empty tree results in O(1) amortized
+splits or merges per operation.
+
+Hint: For the ﬁrst part, consider an n-node tree whose rightmost branch is v1, v2, . . . , vk, where v1
+is the root, each vi, for 1 ≤ i ≤ k − 1, has three children, with its rightmost child being vi+1, and
+ﬁnally vk has three children w, w(cid:48), w(cid:48)(cid:48); note that k = Θ(log n). Consider an insert that inserts a
+value to the right of w(cid:48)(cid:48). Then consider a delete that deletes the same value and then iterate.
+For the second part, since the internal nodes of degree 2 or 6 are “troublesome”, try deﬁning a
+potential function in terms of such nodes.
+
+2
+
+Problem 3
+
+You are given an acyclic directed graph G(V, E), where each node has a color, red, white, or
+blue. A red sweep is a directed path that contains all the red nodes (it may or may not contain
+additional nodes).
+
+Design an algorithm that determines if there is a red sweep and if there is one, ﬁnds a red sweep
+that contains a minimum number of blue nodes.
+
+Your algorithm should run in time O(|V |+|E|) for full credit. Assume adjacency list representation
+of the graph.
+
+Problem 4
+
+Your city has n junctions numbered 1 through n. There are m one-way roads between the
+junctions. As a mayor of the city, you have to ensure the security of all the junctions.
+
+To ensure the security, you have to build some police checkpoints. Each checkpoint can only be
+built at a junction. A checkpoint at junction i can protect junction j if either i = j or the police
+patrol car can drive from i to j and then drive back to i.
+
+Building checkpoints costs some money. As some areas of the city are more expensive than others,
+building checkpoints at some junctions might cost more money than other junctions. You have to
+determine the minimum budget B needed to ensure the security of all the junctions.
+
+Design an algorithm to solve this problem. The input consists of
+
+• a list of costs c1, . . . , cn, where ci is the cost of building a checkpoint at junction i, and
+
+• for every junction i, a list of all pairs (i, j) that represent a one-way road from junction i to
+
+junction j.
+
+The output is (the minimum budget) B.
+
+You may use any standard algorithms as subroutines. Be sure to state the running time of your
+algorithm, and to justify your running time bound. For full credit, your algorithm should run in
+time O(n + m).
+
+3
+
+Problem 5
+
+Let d = d(n) and k = k(n) be functions of n such that
+
+d ≥ 100,
+
+k ≥ 100,
+
+dk ≤
+
+√
+
+n.
+
+We wish to show that for all large enough n, there exists an n-node (undirected) graph G that has
+at least dn
+8 edges and has no simple cycle of length k. The idea is to select a random graph G,
+show that the number of such cycles is likely to be small, and then delete one edge from each such
+cycle.
+
+Hence, let G be a random n-node graph where every pair of nodes (u, v) is included as an edge
+in the graph with probability p and excluded with probability 1 − p, independently for all pairs of
+nodes. Set
+
+p =
+
+d
+n
+
+.
+
+Let Ne denote the number of edges in the graph G and Nc denote the number of simple cycles of
+length k in G. The nodes on a simple cycle are all distinct, i.e. no node appears twice. A cycle is
+counted only once regardless of which of the k nodes is thought of as the start and the end node.
+
+1. What is E[Ne]? Your answer could be exact or reasonable.
+
+2. What is E[Nc]? Your answer could be exact or reasonable.
+
+3. Assume that G satisﬁes Ne ≥ E[Ne]
+
+and Nc ≤ 2 E[Nc].
+Let G∗ be obtained from G by deleting one edge arbitrarily from each simple cycle of length
+k. Show that G∗ has at least dn
+
+8 edges and no simple cycle of length k.
+
+2
+
+4. Now suppose that d = k. What is the largest value of d as a function of n so that the
+argument here works. For full credit, your answer should be correct up to a constant factor.
+
+4
+
+Problem 6
+
+Let ⊕ denote the XOR operation on the binary values {0, 1} (i.e. addition modulo 2). Let a, b, c
+be binary variables and consider the seven linear equations (modulo 2):
+
+a = 1,
+
+b = 1,
+
+c = 1,
+
+a ⊕ b = 1,
+
+b ⊕ c = 1,
+
+a ⊕ c = 1,
+
+a ⊕ b ⊕ c = 1.
+
+1. How many of these equations are satisﬁed by the assignment a = 0, b = 0, c = 0?
+
+2. Show that any assignment a, b, c ∈ {0, 1} such that (a, b, c) (cid:54)= (0, 0, 0) satisﬁes exactly t of
+
+these equations for some t. What is t?
+
+3. Identify logical True with the value 1 and logical False with the value 0. For a variable
+a ∈ {0, 1} interpreted as logical True or False, write its negation in terms of the ⊕ operation.
+
+4. Recall that a 3SAT instance consists of a set of logical variables and a set of clauses of the
+form a ∨ b ∨ c, where a, b, c are the variables or their negations. Using a reduction from 3SAT,
+show that the 3LIN problem, as described below, is NP-complete.
+
+An instance ψ of 3LIN consists of binary variables z1, . . . , zn, and equations E1, . . . , Em, and
+a number 1 ≤ K ≤ m. Each equation Er has one of the following types:
+
+zi = 1,
+
+zi ⊕ zj = 1,
+
+zi ⊕ zj ⊕ zk = 1,
+
+zi = 0,
+
+zi ⊕ zj = 0,
+
+zi ⊕ zj ⊕ zk = 0.
+
+The instance ψ is said to be K-satisﬁable if there is a {0, 1}-assignment to the variables
+z1, . . . , zn that satisﬁes at least K of the equations E1, . . . , Em. Finally,
+
+3LIN = {(cid:104)ψ, K(cid:105) | ψ is K − satisﬁable}.
+
+5
+
+

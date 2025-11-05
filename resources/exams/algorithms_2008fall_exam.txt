@@ -1,0 +1,152 @@
+G22.3520: Honors Analysis of Algorithms
+
+Final Exam, Dec 15, 2008, 1:00-4:30pm
+
+• This is a three and a half hour exam.
+
+• There are six questions, worth 10 points each. Answer all questions.
+
+• Please print your name and SID on the front of the envelope only (not on the exam booklets).
+
+• Please answer each question in a separate booklet, and number each booklet according to the
+
+question.
+
+• Read the questions carefully. Keep your answers legible, and brief but precise.
+
+• Assume standard results, unless asked otherwise.
+
+Best of luck!
+
+1
+
+Problem 1
+
+These questions concern a binary search tree T in which each node x has a integer key value denoted
+key[x]. Recall that a binary search tree is a rooted tree, each node has at most two children, and
+(ii) if z is a right child of x, then
+satisﬁes: (i) if y is a left child of x, then key[y] < key[x].
+key[x] < key[z]. Recall also that the height is the longest distance from the root to any leaf (if the
+tree consists of just the root, then its height is zero). Let h be the height of T .
+
+1. Suppose T has 5000 nodes. What is the largest its height h can be?
+
+2. Suppose T has 1023 nodes. What is the smallest its height h can be?
+
+3. Describe in words how to ﬁnd the maximum element of a binary search tree.
+
+4. Describe in words how to add to the tree a new node x with key[x] = a. How long does this
+
+algorithm take as a function of the height h.
+
+5. Describe in words how to delete a node x with key[x] = a. How long does this algorithm take
+
+as a function of the height h.
+
+Problem 2
+
+Recall that a boolean variable x takes value in {True, False}. A literal is either a variable or its
+negation, i.e. x or x. A clause is a logical OR of one or more distinct literals.
+
+An instance of (2, 3)-SAT problem consists of n boolean variables {x1, x2, . . . , xn} and a set of m
+clauses {C1, C2, . . . , Cm} where each clause has either two or three distinct literals. Assume that a
+variable and its negation do not appear in the same clause.
+
+1. Show that there exists a {True, False}-assignment to the variables {x1, x2, . . . , xn} that satisﬁes
+
+at least 3
+
+4 m clauses.
+2. Now assume that m
+
+3 of the clauses have two literals and the remaining 2
+3 m clauses have three
+literals. Find a constant c, as large as you can, such that every such instance must have an
+assignment that satisﬁes c · m clauses. Prove your claim.
+
+2
+
+Problem 3
+
+You are given an n-node undirected connected graph G(V, E) (as adjacency list representation).
+Let v0 ∈ V be a special start node. For every node w ∈ V , let d(v0, w) denote the distance of w
+from v0, i.e. the length of the shortest path from v0 to w.
+
+1. Name one well-known algorithm that determines d(v0, w) for all nodes w. What is its running
+
+time? It is not necessary to describe the algorithm.
+
+2. Now suppose that you are given a node t ∈ V and guaranteed that d(v0, t) > n
+
+2 . Show that
+there must exist a node x such that after removing the node x (along with all edges incident
+on it) from the graph, there is no path from v0 to t. Give O(|V | + |E|) time algorithm to ﬁnd
+such a node x.
+
+Problem 4
+
+Let Σ be a ﬁxed ﬁnite alphabet. You are given a directed graph G(V, E) along with a label
+σ(u, v) ∈ Σ for every edge (u, v) ∈ E. The label of any directed path is deﬁned to be the string
+obtained by concatenating the labels of edges along the path. You are also given a string s ∈ Σ∗,
+say s = a1a2 . . . ak with ai ∈ Σ for 1 ≤ i ≤ k. Let v0 ∈ V be a special start node. Assume adjacency
+list representation for the graph.
+
+1. Give an algorithm to ﬁnd a path that starts at v0 and has the string s as its label, if such a
+path exists. The algorithm should detect if no such path exists. The algorithm should run in
+time polynomial in |V | = n, |E| = m and |s| = k.
+
+Hint: For 1 ≤ i ≤ k, deﬁne a set Wi to be the set of nodes that can be reached from v0 by a
+path labeled a1a2 . . . ai.
+
+2. Now suppose that every edge also has a weight w(u, v) ≥ 0. The weight of a path is deﬁned
+to be the sum of the weights of the edges on this path. Modify your algorithm so that it
+ﬁnds a path that starts at v0, has the string s as its label, and has maximum possible weight
+among all such paths (if one exists).
+
+3
+
+Problem 5
+
+Let the alphabet be Σ = {0, 1, #}. Consider the language:
+
+L = {x#y | x, y ∈ {0, 1}∗, x (cid:54)= y}.
+
+1. Show that L is a context free language (Hint: Grammar or a Push Down Automaton?).
+
+The goal of the next two parts is to prove that L is not regular by showing that L cannot be
+accepted by a DFA with fewer than k states for any ﬁxed integer k ≥ 1.
+
+2. Give a construction of k strings x1, x2, . . . , xk ∈ {0, 1}∗ such that for every 1 ≤ i < j ≤ k,
+
+there exists a string zij ∈ {0, 1}∗ such that
+
+xi#zij (cid:54)∈ L
+
+and
+
+xj#zij ∈ L.
+
+3. Show that L cannot be accepted by a DFA with fewer than k states.
+
+Hint: Look at the state reached by the DFA after reading the string xi, 1 ≤ i ≤ k.
+
+Problem 6
+
+Let G(V, E) be an undirected graph. A set of nodes S ⊆ V is called triangle-free if for any three
+distinct nodes a, b, c ∈ S, at least one of {a, b}, {b, c}, {a, c} is not an edge. Let
+
+TRIANGLE-FREE-SET = {(cid:104)G, k(cid:105) | 1 ≤ k ≤ |G|, G has a triangle free set of size k}.
+
+Show that TRIANGLE-FREE-SET is NP-complete by giving a reduction from INDEPENDENT-SET
+problem. (Hint: Add new nodes.)
+
+Recall: A set S(cid:48) ⊆ V (cid:48) in a graph G(cid:48)(V (cid:48), E(cid:48)) is called independent if for any two distinct nodes
+a(cid:48), b(cid:48) ∈ S(cid:48), {a(cid:48), b(cid:48)} (cid:54)∈ E(cid:48).
+
+INDEPENDENT-SET = {(cid:104)G(cid:48), k(cid:48)(cid:105) | 1 ≤ k(cid:48) ≤ |G(cid:48)|, G(cid:48) has an independent set of size k(cid:48)}.
+
+You can assume that INDEPENDENT-SET is NP-complete.
+
+4
+
+

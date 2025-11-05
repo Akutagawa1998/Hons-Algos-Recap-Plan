@@ -1,0 +1,179 @@
+CSCI-GA 3520: Honors Analysis of Algorithms
+
+Final Exam: Thu, Dec 20 2018, Room WWH-101, 10:00-2:00pm.
+
+• This is a four hour exam. There are six questions, worth 10 points each. Answer all questions
+
+and all their subparts.
+
+• This is a closed book exam. No books, notes, reference material, either hard-copy, soft-copy
+
+or online, is allowed.
+
+• In the past years, to pass this exam, one needed to answer 3 or 4 problems well, instead of
+
+answering all the problems poorly.
+
+• Please print your name and SID on the front of the envelope only (not on the exam booklets).
+Please answer each question in a separate booklet, and number each booklet according to the
+question.
+
+• Read the questions carefully. Keep your answers legible, and brief but precise. Assume
+standard results and algorithms (i.e., those taught in class or referred to in the homeworks).
+
+• You must prove correctness of your algorithm and prove its time bound unless
+stated otherwise. The algorithm can be written in plain English (preferred) or
+as a pseudo-code.
+
+Best of luck!
+
+1
+
+Problem 1 (Graphs are undirected)
+
+In this problem, we will study an algorithm to ﬁnd the minimum spanning tree in a graph that
+is diﬀerent from the one presented in class. Let G(V, E) be a connected undirected graph and
+wt(e) (cid:62) 0 denote the weight of an edge e ∈ E. The algorithm proceeds as below. Here S ⊆ V is
+a set that grows larger as the algorithm proceeds and TS is a graph on the vertex set S. All the
+edges of TS are from E.
+
+1. Initialization: Let S = {v} where v ∈ V is an arbitrary vertex and let TS have no edges.
+
+2. Let e be the edge with minimum weight among the edges in E whose one endpoint is in S and
+the other endpoint is in V \ S. Call the endpoints of e in S and V \ S as u and w respectively.
+
+3. Add w to S and add the edge e = (u, w) to TS.
+
+4. Stop if S = V . Otherwise repeat Steps (2) and (3).
+
+You need to show the correctness of this algorithm. Do not worry about the running time.
+
+(a) Show that TS is a tree on the set of vertices S throughout the execution of the algorithm.
+
+(b) Show that when the algorithm stops, TS is a minimum spanning tree of G.
+
+Hint: Induction? Replacement argument?.
+
+Problem 2 (Graphs are directed)
+
+Let G(V, E) be a directed graph whose vertices are colored red or blue. A t-alternating walk is a
+walk (i.e., a path where vertices could repeat) v0, v1, . . . , vk that has at least t color transitions,
+from red to blue or vice versa. Assume 1 (cid:54) t (cid:54) |V |2.
+
+(a) If G is acyclic, design a O(|V | + |E|) algorithm to decide whether G has a t-alternating walk.
+
+(b) Now let G be a general directed graph (not necessarily acyclic). Design a O(|V | + |E|)
+
+algorithm to decide whether G has a t-alternating walk.
+
+Assume adjacency list representation of graphs.
+
+2
+
+Problem 3
+
+Let x denote a string of length n over the 4-symbol alphabet {A, C, G, U }. For example,
+
+x = AGCU U CGAU,
+
+n = 9.
+
+For an index 1 (cid:54) i (cid:54) n, let xi denote the ith symbol of x. A folding of the string x is a set E of
+unordered pairs of indices from {1, . . . , n} satisfying the following.
+
+1. E is a matching, i.e., no index i appears in more than one pair in E.
+
+2. For all (i, j) ∈ E, (xi, xj) is either (A, U ), (U, A), (C, G) or (G, C). I.e., pairs can only connect
+
+A with U and C with G.
+
+3. For all (i, j) ∈ E with i < j, it holds that for all (k, (cid:96)) ∈ E, either both k, (cid:96) are in the
+interval {i + 1, . . . , j − 1} or both are outside the interval {i, . . . , j}. I.e., the matching is
+non-intersecting.
+
+For example, if x = AGCU U CGAU , a possible folding is given by E = {(1, 9), (2, 3), (5, 8), (6, 7)}.
+Design a polynomial time algorithm that given a string x ﬁnds a folding of maximum cardinality.
+
+Problem 4 (Graphs are undirected)
+
+Let G(V, E) be an undirected graph. For a subset S ⊆ V of vertices, its neighborhood Nbd(S) is
+deﬁned as
+
+Nbd(S) = {v | v ∈ S or (u, v) ∈ E for some u ∈ S}.
+
+An n-vertex graph is called an expander graph if for every subset of vertices S ⊆ V , 1 (cid:54) |S| (cid:54) n
+2 ,
+we have |Nbd(S)| (cid:62) 11
+10 · |S|. The goal is to show that the diameter of an expander graph, i.e.,
+the maximum distance between any pair of vertices, is O(log n). Assume therefore that G is an
+expander graph. For a vertex s and an integer j (cid:62) 0, let Dj(s) denote the set of all vertices whose
+distance from s is at most j.
+(a) Show that for every vertex s, and any j (cid:62) 0, we have |Dj(s)| (cid:62) min (cid:0)( 11
+
+(cid:1).
+
+10 )j, n+1
+
+2
+
+(b) Show that for every two distinct vertices s and t, the distance between s and t is at most
+
+C log2 n, where C is a constant that does not depend on s or t or n.
+
+3
+
+Problem 5 (Graphs are undirected)
+
+Construct an undirected graph G(V, E) at random as follows. Let V be a set of n vertices. For
+each pair of distinct vertices u, v ∈ V , let (u, v) ∈ E with probability 1
+2 , independently for all vertex
+pairs. That is, for each vertex pair (u, v), the pair is included as an edge with probability 1
+2 and
+left out with probability 1
+
+2 , independently for all vertex pairs.
+
+We intend to analyze the size of the largest independent set in this random graph. Recall that an
+independent set is a subset of vertices with no edge amongst them. For a subset S ⊆ V, 1 (cid:54) |S| (cid:54) n,
+let ES be the event that S is an independent set.
+
+(a) What is Pr[ES]?
+
+(b) For 1 (cid:54) k (cid:54) n, let Dk be the event that G has an independent set of size k. Can you express
+
+Dk in terms of the events ES?
+
+(c) Can you provide an upper bound on Pr[Dk] as a function k?
+
+(d) What is the smallest value of k for which you can show that Pr[Dk] (cid:54) 1
+
+100 ?
+
+The desired value of k should be in terms of number of vertices n. Give the smallest value
+you can. It is enough to be correct up to a constant factor. n can be thought of as suﬃciently
+large.
+
+Problem 6 (Graphs are undirected)
+
+Recall that a vertex cover in an undirected graph is a subset of vertices that touches every edge.
+Consider the following language:
+
+(cid:110)
+
+G | G is an undirected graph with n vertices and has a vertex cover of size at most
+
+L =
+
+(cid:111)
+
+.
+
+n
+4
+
+Show that L is NP-complete. You can assume NP-completeness of any of the problems discussed
+in class.
+
+4
+
+

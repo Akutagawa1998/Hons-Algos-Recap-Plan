@@ -1,0 +1,187 @@
+Written Qualifying Exam
+Analysis of Algorithms
+(Fall 2005)
+
+• This is a three hour exam.
+
+• All six questions carry the same weight; however, to pass the exam, you need to provide good answers
+
+to several questions: it is not suﬃcient to obtain partial credit on each question.
+
+• Print your name and SID on the front of the envelope only (not on the exam booklets).
+
+• Answer each question in a separate booklet, and number each booklet with the corresponding question
+
+number.
+
+• Read each question carefully. Keep your answers legible, and brief but precise.
+
+• Assume standard results: cite standard theorems as necessary, and use standard algorithms as subrou-
+
+tines where appropriate.
+
+• Good luck!
+
+1
+
+1. You are given an array A[1 . . . n] of items. An item x is called a majority element if it appears more
+
+than n/2 times in A. Clearly, a majority element, if it exists, must be unique.
+
+You are to design an algorithm that determines if A has a majority element, and if so, determines its
+value. However, your algorithm should observe the following restrictions:
+
+• The array A is stored in read-only memory.
+
+• Your algorithm should use at most O(log n) words of additional (read/write) memory (each word
+can hold numbers bounded by O(n), and the output of your algorithm should be an index into A
+that indicates a position at which the majority element is located).
+
+• Your algorithm should run in time O(n log n), assuming comparisons of items take time O(1).
+
+• Your algorithm should be deterministic.
+
+Solution. Divide and conquer: see if either A[1 . . . n/2] or A[n/2 + 1 . . . n] has a majority, and if so test
+if either of these is a majority for A[1 . . . n].
+
+2
+
+2. Consider the following recursive, probabilistic algorithm A. It takes as input list L of n items x1, . . . , xn.
+
+if n ≤ 1 then
+
+return
+
+else
+
+for i ← 1 to 3 do
+
+initialize an empty list Li
+for j ← 1 to n do
+
+ﬂip a fair coin: if it comes up “heads,” append xj to Li
+
+ﬂip a fair coin: if it comes up “heads,” recursively call A on input Li
+
+What is the expected running time of this algorithm? Give a careful justiﬁcation of your claim.
+
+Solution: O(n). For j = 0, 1, . . . , let Xj be the number of items that are processed at level j. It is not
+hard to show that E[Xj+1] = (3/4)E[Xj], and if X = P
+
+j≥0 Xj, it follows that E[X] = O(n).
+
+3
+
+3. Given two strings x, y ∈ Σ∗, a shuﬄe of x and y is a string z such that
+
+z = u1v1 · · · ukvk,
+
+for some strings ui, vi ∈ Σ∗ with u1 · · · uk = x and v1 · · · vk = y. That is, a shuﬄe is formed by
+concatenating symbols from x and y, while preserving the relative order of symbols in each of the
+strings x and y. For example, a1bc23 is a shuﬄe of abc and 123 while a2bc13 is not.
+Also recall that for strings z, w ∈ Σ∗, we say that z is a subsequence of w if z = z1 · · · zk, w = w1 · · · w‘,
+and there exist indices i1 < · · · < ik such that z1 = wi1, . . . , zk = wik .
+Design and analyze an algorithm that takes three strings as input, x, y, w ∈ Σ∗, and determines if some
+shuﬄe z of x and y appears as a subsequence of w. Your algorithm should run in time O(|x||y||w|).
+
+Solution: Dynamic programming. Suppose x = x1 · · · x‘, y = y1 · · · , zm, and w = w1 · · · wn. The
+subproblems are P (i, j, k), meaning that some shuﬄe of xi · · · x‘ and yj · · · ym appears as a subsequence
+of wk · · · wn. The recursion is given by
+
+P (i, j, k) ⇐⇒ (i = ‘ + 1 ∧ j = m + 1)
+
+∨ (i ≤ ‘ ∧ k ≤ n ∧ xi = wk ∧ P (i + 1, j, k + 1))
+∨ (j ≤ m ∧ k ≤ n ∧ yj = wk ∧ P (i, j + 1, k + 1))
+∨ (k ≤ n ∧ P (i, j, k + 1)).
+
+The corresponding subproblem graph has O(‘mn) vertices, and each vertex has degree O(1).
+
+4
+
+4. Consider the two languages:
+
+A = {ambncm+n : m, n ∈ Z≥0} and B = {ambncmn : m, n ∈ Z≥0}.
+
+(a) Show that A is not regular.
+
+(b) Give a context free grammar for A.
+
+(c) Show that B is not context free.
+
+Solution.
+
+(a) Let p be the pumping length from pumping lemma. Set s = apbpc2p ∈ A. The pump handle must
+be contained in the “a region” of s, so pumping up or down changes the number of a’s, but not
+the number of b’s or c’s, so we get a string outside of A.
+
+(b) Here is a CFG:
+
+S → aSc, S → T, T → bT c, T → (cid:15).
+
+(c) Let p be the pumping length from pumping lemma. Set s = apbpcp2
+
+. The pumping handles can
+span only two consecutive regions, and each individual handle must lie in one region (otherwise,
+we pump our way out of a∗b∗c∗). If we only pump in the a and b regions, then the number of
+c’s will clearly be wrong. So we must pump in the b and c regions, and both handles must be
+non-empty. Suppose one pump handle consists of k b’s and the other consists of ‘ c’s, where
+0 < k < p and 0 < ‘ < p. Pump up once: we should have p(p + k) = p2 + ‘, which implies pk = ‘,
+which implies ‘ is a multiple of p, which is impossible.
+
+5
+
+5. The maximum revenue problem is this. You are given a directed graph G = (V, E), where each node
+in the graph has a certain amount of money sitting on it. More precisely, vertices v ∈ V are labeled
+with values p(v) ∈ Z≥0, where p(v) represents the number of dollars sitting on vertex v. You are also
+given vertices s, t ∈ V . The goal is to start at s and follow edges in G to reach t, picking up as much
+money along the way as you can. You may visit the same node twice, but once you have picked up
+the money at that node, it is gone. Deﬁne M (G, p, s, t) to be the maximum number of dollars you can
+pick up on any path from s to t (paths need not be simple).
+
+(a) Design and analyze an algorithm to compute M (G, p, s, t). Your algorithm should run in time
+
+O(|V | + |E|).
+
+(b) Explain how to enhance you algorithm so that it computes and prints out a path (any path)
+from s to t with M (G, p, s, t) dollars on it. Full credit goes for an O(|V |2)-time algorithm, and
+partial credit for an O(|V ||E|)-time algorithm. Just a very high-level English description of your
+algorithm will do — do not write detailed pseudo-code.
+
+Solution: For part (a), ﬁrst solve the problem on a DAG: this can be done directing using the known
+algorithm DAG-SHORTEST-PATHS in CLRS, converting vertices to edges and negating the p-values;
+alternatively, do a topological sort, and process nodes in reverse topological order (starting at t and
+ending at s), and computing the max of the sums. For general graphs, compute SCCs.
+
+For part (b), we need to compute a path that sweeps out each SCC. Chose any vertex v in the
+component C and precompute paths from v to all w ∈ C and from all w ∈ C to v. This will take time
+linear in |C| plus the edges of G connecting vertices in C. Now glue together paths, always returning
+to v.
+It turns out that in the worst case, the shortest path that sweeps out an SCC may contain Ω(|C|2)
+vertices, so you really can’t do better (well, you can do it in linear time if you print out paths using a
+compact representation).
+
+6
+
+6. Consider the following modiﬁcation to the maximum revenue problem stated in Question 5, called the
+maximum proﬁt problem. The setup is the same as in Question 5, except now edges e ∈ E have
+costs c(e) ∈ Z≥0. For any path from s to t, deﬁne its net value to be the sum of all money sitting on the
+distinct vertices in the path (again, the money is gone once you take it), minus the cost oﬀ all the edges
+in the path (you are charged c(e) dollars each and every time you cross edge e). Let N (G, p, c, s, t) be
+the largest net value of any path from s to t.
+
+Your task is to show that computing N (G, p, c, s, t) is NP-complete, or more precisely, that the language
+
+L = {hG, p, c, s, t, ki : N (G, p, c, s, t) ≥ k}
+
+is NP-complete.
+
+Hint: this can be solved using a very simple reduction.
+
+Solution: restriction to HAMPATH . Given an instance hG, s, ti of the Hamiltonian path problem,
+construct an instance hG, p, c, s, ti of the maximum proﬁt problem as follows: set costs on edges to 1
+dollar, put n dollars on every vertex, and set k = n2 − n + 1 (or alternatively, 2 dollars per vertex
+suﬃces, with k = n + 1).
+
+7
+
+

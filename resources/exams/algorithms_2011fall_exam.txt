@@ -1,0 +1,415 @@
+Honors Algorithms/Written Qualifying Exam
+Wednesday, Dec. 21, 2011
+
+This is a 3 1
+
+2 hour examination.
+
+All questions carry the same weight.
+Answer all six questions.
+
+• Please print your name on the sticky note attached to the outside envelope, and nowhere else.
+
+• Please do not write your name on the examination booklets.
+
+• Please answer each question in a separate booklet, and number each booklet with that question
+
+number.
+
+• Read the questions carefully. Keep your answers brief. Assume standard results, except when
+
+asked to prove them.
+
+• When you have completed the exam, please reinsert the booklets back into the envelope.
+
+Problem 1
+
+[10 points] New numbered exam booklet PLEASE
+
+a) Consider the following problem.
+
+– Input: A target bound K and an undirected graph G = (V, E) with n vertices and m edges.
+
+– Question: Is there a subset W of 3K vertices such that there are exactly 3K edges in E that have
+
+both endpoints in W , and these edges form K disjoint triangles?
+
+– Prove that this problem is NP-Complete.
+
+The reduction can use any standard problem that is known to be NP-Complete.
+
+Solution
+
+a) First, this problem is in NP: I can write a program to check the solution:
+it counts the number of
+triangles, checks that all of its edges are in E, veriﬁes that they are disjoint, and checks to see if there are
+any other edges in E that have both endoints in the set of 3K vertices.
+
+b) We reduce Independent Set to this problem. The IS problem is: given an undirected graph H = (W, F )
+and target K, is there a set of K vertices in W such that no pair of these vertices are connected by an edge
+in F ?
+
+The reduction is: for each w in W , insert w, w1 and w2 into V , and edges (w, w1), (w, w2), (w1, w2) into
+E. Also insert F into E. It is clear that a solution to IS gives a solution to this problem. To see that a
+solution to this problem gives a solution to IS, note that each triangle can have no more than two vertices
+that lie outsde of W , so the it sufﬁces to select from each solution triangle a vertex that belongs to W to
+get independent set of at least K vertices.
+
+b) Consider the following problem.
+
+– Input: An undirected graph G = (V, E) with V = {1, 2, 3, . . . , n}, and a bound K.
+
+– Question: Is there a subset S of vertices from V where each edge in E has at least one endpoint in
+
+S, and the sum of the vertex number-names in S is no more than K?
+
+– Prove that this problem is NP-Complete.
+
+Hint: The difﬁculty with this problem is that as deﬁned, far more vertices with small number-names
+can be used in a cover than with large number-names.
+
+Solution
+a) First, this problem is in NP: I can write a program to check the solution: it veriﬁes that the solution is a vertex
+cover, and adds up the vertex numbers to see if the sum is at most K.
+b) We reduce Vertex Cover to this problem. The VC problem is: given an undirected graph H = (W, F ) and
+target T , is there a set S of K vertices in W where each edge in F has at least one endpoint in S.
+
+The idea is: Let |W | = n. Given H, create G as follows: it has n2 isolatied edges with left endpoint vertices
+named 1 through n2 and right endpoint vertices named n2 + 1 through 2n2. And it contains a copy of H with
+vertex numbers 2n2 + 1 through 2n2 + n. Set K = 1 + 2 + . . . + n2 + T (2n2 + n). The solution must ﬁnd at
+most T vertices in W because (T + 1)(2n2 + 1) > 2T n2 + 2n2 > T (2n2 + n). So a solution to this problem
+for G is a solution for H. Likewise, a solution for H gives a solution for this thing on G.
+
+2
+
+Problem 2
+
+[10 points] New numbered exam booklet PLEASE
+
+Let G be an undirected graph with edge weight function w, and m edges e1 . . . em in sorted according to their
+weight: w(e1) ≤ w(e2) ≤ . . . ≤ w(em). Imagine you just ran the some MST algorithm on G and it output
+an MST T of G. Now suppose that somebody changes the weight of a single edge ei from w(ei) to some other
+value w′. For each of the following 3 scenarios, describe (at a high level) the fastest algorithm you can think of
+to transform the original MST T of G into a new (and correct) MST T ′ of G after the edge weight change. Be
+sure to justify the correctness of your answers, and to express your running time as a function of m and n.
+
+a) Suppose ei is in the MST T and w′ < w(ei) (so the weight of the MST edge ei is decreased).
+
+Solution
+
+T is an MST solution T ′. So the answer runs in constant time. Correctness: all cuts are the same for each
+tree, and the same edges are min cost connectors across those cuts.
+
+b) Suppose ei is not in T and w′ < w(ei) (so the weight of a non-MST edge ei is decreased).
+
+Hint: Compute the unique shortest path in T between the two end-points of ei.
+
+Solution
+
+Orient the tree via a DFS so that each vertex (other than the root) has an parent. Now it is easy to trace
+the cycle formed by conceptually adding the edge ei to T . If w′ is cheaper than some edge on the cycle,
+remove the most expensive edge on the cycle and keep ei in the new solution tree T ′. Otherwise the
+solution is the original T .
+Time: linear. Correctness: If T ′ is T there is nothing to prove. Otherwise call the excised edge ej. Imagine
+running a min cut based MST algorithm where you omit any cut that would select the new ei with cost w′.
+(You do this by selecting ei when it is the min cost connector, but conceptually refrain from inserting it in
+the MST.) This will build two subtrees of altogether n − 2 edges. Each edge in T minus ej is a min cost
+connector across its cut, and each edge in T minus ej will qualify as such a min cost connector. So use
+those edges. Now complete the construction by adding the cheapest connector across the remaining cut.
+Two contenders are ei and ej but there cannot be any other connector (besides ei) of cost less than w(ej ),
+since ej belonged to T . So ei is the ﬁnal edge to add.
+
+c) Suppose ei is in T and w′ > w(ei) (so the weight of the MST edge ei is increased).
+
+Solution
+
+Remove ei and trace the two resulting subtrees to identify the vertices on each side of the cut. Partition E
+into the edges connecting opposite sides of the cut, and those that are useless. Select the cheapest of the
+connecting edges. If it is cheaper that w′ use it. If not, the tree is unchanged.
+
+Time Θ(|E|). Correctness: T is built from min-cut cost connectors.
+
+3
+
+Problem 3
+
+[10 points] New numbered exam booklet PLEASE
+
+You are given a collection of equations of the form variable = variable + constant
+For example:
+
+a = d + 2
+
+a = b + 4
+
+c = f − 1
+
+a = f + 3
+
+c = a − 2
+etc.
+
+For notational simplicity, you can assume that the variables are a1, a2, . . . , an, and the equations are formulated
+as the m triples (D[i], E[i], F [i]) for i = 1, 2, 3, . . . , m. The meaning of the triple (D[i], E[i], F [i]) is that
+equation i reads: aD[i] = aE[i] + F [i].
+Present an O(m + n)-time to determine if the system has a solution.
+Hints:: Note that this system can be modeled as a graph. Moreover, if there is a solution, then you can ﬁnd
+another solution by adding the same constant to all of the variables. This means that if there is a solution, then
+there is also a solution where – for example – a1 is zero. In addition, please note that the system might deﬁne a
+graph that is not connected.
+
+Solution
+
+Create a directed graph of n vertices where vertex i represents the variable ai.
+
+For each triple
+
+(D[i], E[i], F [i]) insert a directed edge from vertex D[i] to vertex E[i] with length F [i].
+
+There are many ways to do the consistency check. One might check the strong components and then check
+the overall DAG. But the easiest way is to double the edges by assigning the two edges (D[i], E[i]) with cost F [i]
+and (E[i], D[i]) with cost −F [i] to the graph. So let G be this graph, which is just a set of disjoint subgraphs
+that are strongly connected. The consistency check is as follows.
+
+Global : Consistent;
+procedure Driver();
+
+Consistent ← TRUE;
+mark all vertex costs Nil;
+foreach vertex v do
+
+if v.cost is Nil then
+
+v.cost ← 0;
+DF S(v)
+
+endif
+endfor;
+print(Consistent)
+
+end Driver;
+
+procedure DFS(w);
+
+foreach vertex u in Adj[w] do
+
+if u.cost is Nil then
+
+u.cost ← w.cost + Edgecost(w, u);
+DF S(u)
+
+elseif u.cost 6= w.cost + Edgecost(w, u) then
+
+Consistent ← FALSE
+
+endif
+endfor
+end DFS;
+
+It is not difﬁcult to create the adjacency lists for G in Θ(m + n) time. The edge costs can then be stored in a
+companion adjacency edge cost array so that the kth element in Ecost[j] is the edge cost of (j, h), where h is the
+kth entry in Adj[j]. With this construction, total time to construct G and to run the algorithm is Θ(|V | + |E|),
+which is Θ(m + n).
+
+4
+
+Problem 4
+
+[10 points] New numbered exam booklet PLEASE
+
+Let A[1..n] be an array of n ﬂoating point numbers.
+
+a) Describe a linear-time algorithm that determines if more than n/2 of the elements have the same value.
+
+Hint: Imagine seeing the data in sorted order (even though you cannot sort the data in linear time). Now
+use the Blum Floyd Pratt Rivest Tarjan fast selection (or order statistics or rank selection) algorithm to
+ﬁnd a candidate element that could appear more than half of the time in A.
+
+Solution
+
+Use the BFPRT algorithm to ﬁnd the median. Now collect all values equal to the median. If that count is
+more than n/2 report yes. Otherwise report no.
+
+b) Adapt your argument to the determine if more than n/3 of the elements have the same value.
+
+Hint: You might need multiple passes of the BFPRT algorithm.
+
+Solution
+Use the BFPRT algorithm to ﬁnd an element of rank n
+count is more than n/3 report yes.
+If not, use the BFPRT algorithm to ﬁnd an element of rank 2n
+If that count is more than n/3 report yes. If not, report no.
+
+3 . Now collect all values equal to that value. If that
+
+3 . Now collect all values equal to that value.
+
+c) Describe a fast algorithm that determines if there is an element that appears in A more than n/C times for
+
+any input parameter C.
+Your target operation count is O(C · n).
+
+Solution
+
+For k sequencing from 1 to C − 1 and while no yes has been reported do this:
+
+Use the BFPRT algorithm to ﬁnd an element of rank kn
+that value. If that count is more than n/C report yes.
+
+C . Now collect all values equal to
+
+If no yes has been reported then report no.
+
+d) Adapt your solution for c) to present, for any C = 2k, an informal, very high level description of an
+algorithm that prints all of the elements that appear more than n/C times, and which runs in O(n+n log C)
+time.
+
+Let A be the set of n num-
+bers.
+
+Global YesNo;
+YesNo ← no;
+many(A, k, n/C);
+print(YesNo);
+
+Solution
+procedure many(S,k,count)
+
+if k is 0 OR YesNo is yes then return endif;
+Use the BFPRT algorithm to ﬁnd the median µ of S;
+Collect three sets: W conains the elements < µ, X the values = µ
+
+and Y the values > µ;
+if |X| > count then YesNo ← yes
+else
+
+many(W, k − 1, count);
+if YesNo is no then many(Y, k − 1, count) endif
+
+endif
+end many;
+
+5
+
+Problem 5
+
+[10 points] New numbered exam booklet PLEASE
+
+a) The baby sitting assignment problem
+
+You are the CTO of a baby sitting company, and have a request to baby sit n children one day. You can hire
+any number of baby sitters for a ﬁxed cost of B dollars per baby sitter. Also, you can assign an arbitrary
+number of children i ≥ 1 to any baby sitter. However, each parent will only pay the amount p[i] if her
+child is taken care of by a baby sitter who looks after i children. For example, if n = 7 and you hire 2
+baby sitters with one looking after 3 children and the other managing 4 children, then your total proﬁt is
+3p[3] + 4p[4] − 2B.
+
+Given B, n, p[1], . . . , p[n], your job is to assign children to baby sitters in a way that maximizes your total
+proﬁt. So you want to ﬁnd an optimal number k and an optimal partition n = n1 + . . . + nk so as to
+maximize revenue R = n1 · p[n1] + . . . + nk · p[nk] − k · B.
+
+i) Present a recursive high-level program speciﬁcation to ﬁnd the maximum revenue R based on the
+
+input data B, n, and P [1..n].
+Note: the technical difﬁculty with this problem occurs when n is not a multiple of the “most prof-
+itable” number of children to assign to each baby sitter. For this general case, you will not ﬁnd a
+convenient formula or simpler solution than that provided by dynamic programming.
+
+Let Best[j] be the solution to the subproblem for j children. Then
+
+Solution
+
+Best[j] =
+
+1;
+max0≤h<j{Best[h] + p[j − h] − B},
+
+(cid:26)
+
+if j = 0;
+if j > 0.
+
+ii) Analyze – with a brief justiﬁcation – the running time of your procedure when augmented with a
+
+look-up table to ensure that each subproblem is solved just once. Use Θ(·) notation.
+
+The operation count is quadratic because it takes Θ(j) time to check the j outcomes needed to compute
+the answer for location j of the look-up table when locations 1 through j − 1 are already ﬁlled.
+
+Solution
+
+6
+
+b) Arithmetic to the max
+
+You are given a sequence of positive ﬂoating point numbers. Insert +’s, ∗’s, and parentheses so as to get
+the largest possible expression.
+
+For example, suppose the sequence is 1.5 2.0 2.5 1.0.
+
+Options include:
+
+(1.5 ∗ 2.0) + (2.5 ∗ 1.0) = 5.5
+
+1.5 + 2.0 + 2.5 + 1.0 = 7.0
+
+1.5 ∗ 2.0 ∗ 2.5 ∗ 1.0 = 7.5
+
+(1.5 + 2.0) ∗ (2.5 + 1.0) = 12.25
+
+Present a high-level recursive program speciﬁcation to compute the largest possible expression for the data
+A[1..n].
+
+Let S[i, k] be the solution to the subproblem as deﬁned on A[i..k]. Then
+
+Solution
+
+S[i, k] =
+
+A[i]
+maxi≤j<k {max{(S(i, j) + S(j + 1, k)), (S(i, j) ∗ S(j + 1, k))}}
+
+(cid:26)
+
+if i = k;
+if i < k.
+
+[10 points] New numbered exam booklet PLEASE
+
+Problem 6
+For the two languages below, present a proof that shows if each is a CFL.
+Hints: Recall that the recognizer can be nondeterministic, and when applying a pumping lemma, pick an
+initial string wisely, and be ready to pump in any direction.
+
+a)
+
+– Let La = {aibjck : i, j, k in {1, 2, 3, · · ·} and (i 6= j or i 6= k)}.
+– Present a proof that determines if La is a CFL.
+
+Solution
+
+The language is a CFL. We simply guess if it is j or k that is not equal to i. Then we push a token onto the
+stack for every a that is read, and pop the stack as the guessed symbol b or c appears. When done, we want
+the stack to be non-empty after or to have already been emptied before the last of the guessed symbols is
+read. We also check to ensure that the string belongs to a+b+c+. So the language is a CFL.
+
+b)
+
+– Let Lb = {aibjcmax {i,j} : i, j in {1, 2, 3, 4, · · ·}}.
+– Present a proof that determines if Lb is a CFL.
+
+Solution
+
+This language is not a CFL. To prove that, we use a pumping lemma.
+
+The uvxyz pumping lemma says: for any CFL Lb, there is a count n such that: if s is in Lb and |s| > n,
+then we can write s = uvxyz where |vy| > 0, and uvixyiz is in Lb for i = 0, 1, 2, · · · .
+Let s = anbncn. It is in Lb by deﬁnition. So s = uvxyx for some strings u, v, x, y, and z where the
+pumping lemma is applicable. It is clear that v must belong to a+ as otherwise uvixyiz cannot belong to
+Lb. And for the same reason, y must belong to either b+ or c+. But then uv0xy0z cannot belong to Lb
+because its number of as will be less than the number of bs if y is in c+, or less than the number of cs if y
+is in b+.
+
+7
+
+

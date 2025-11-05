@@ -1,0 +1,199 @@
+CSCI-GA 3520: Honors Analysis of Algorithms
+
+Final Exam: Fri, Dec 18 2015, Room WWH-102, 11:00-3:00pm.
+
+• This is a four hour exam. There are six questions, worth 10 points each. Answer all questions
+
+and all their subparts.
+
+• This is a closed book exam. No books, notes, reference material, either hard-copy, soft-copy
+
+or online, is allowed.
+
+• Please print your name and SID on the front of the envelope only (not on the exam booklets).
+Please answer each question in a separate booklet, and number each booklet according to the
+question.
+
+• Read the questions carefully. Keep your answers legible, and brief but precise.
+
+• Assume standard algorithms and results.
+
+• You must prove correctness of your algorithm and prove its time bound unless stated other-
+
+wise. The algorithm can be written in plain English (preferred) or as a pseudo-code.
+
+Best of luck!
+
+1
+
+Problem 1
+
+Recall that a binary counter is an array A where A[i] ∈ {0, 1} for i = 0, 1, . . . . Such an array
+represents the number X = (cid:80)
+
+i 2iA[i].
+
+Initially, all array entries are zero. An increment operation updates the array, so that if A
+represents X before the operation, it represents X + 1 after the operation. We can implement the
+increment operation as follows:
+
+i ← 0
+while A[i] = 1 do
+
+A[i] ← 0
+i ← i + 1
+
+A[i] = 1
+
+We can measure the cost of a single increment operation as the number of entries in A whose
+value changes during the execution of the above algorithm. It can be shown that performing a
+sequence of n increment operations has a cost of at most 2n — you are NOT being asked to show
+this here.
+
+Now suppose we want to implement a counter that supports both increment and decrement
+operations. Assuming that A represents X > 0 before the decrement operation, it should represent
+X − 1 after the operation. The following algorithm would work:
+
+i ← 0
+while A[i] = 0 do
+
+A[i] ← 1
+i ← i + 1
+
+A[i] = 0
+
+(a) Just as for increment, the cost of a decrement operation is the number of entries in A that
+change. Suppose we allow arbitrary sequences of interleaved increment and decrement op-
+erations, starting from X = 0 (but requiring that X ≥ 0 throughout).. Show that in the
+worst case, such sequences cost Ω(n log n), where n is the number of increment/decrement
+operations.
+
+(b) To ﬁx the problem identiﬁed in part (a), we may use a redundant binary counter. Such
+a counter is an array A where A[i] ∈ {−1, 0, 1} for i = 0, 1, . . . . As before, such an array
+represents the number X = (cid:80)
+i 2iA[i]. Note that nonzero numbers may have more than one
+representation.
+
+Show how to implement increment and decrement in such a way that any sequence of n
+interleaved increment and decrement operations, starting from X = 0, has a cost that is
+O(n). Again, the cost for an operation is the number of entries in A that change.
+
+HINT: Use a credit argument, or some other type of amortized analysis.
+
+2
+
+Problem 2
+
+Let h : U → {0, . . . , m − 1} be a hash function, mapping from some universe U of data items to a
+set of slots {0, . . . , m − 1}. For a ﬁnite set S ⊆ U and an element a ∈ S, we say that h isolates a
+in S if the only element of S that hashes to the slot h(a) is a itself, i.e.,
+
+for all b ∈ S : h(a) = h(b) =⇒ a = b.
+
+Now recall the notion of a perfect hash function. Using the above terminology, we can say that
+h is a perfect hash function for S if h isolates every element of S. Consider the following, weaker
+property: let us say that h is a pretty good hash function for S if h isolates at least |S|/2 elements
+of S.
+
+Your task is to design an eﬃcient, probabilistic algorithm that takes as input a set S =
+
+{a1, . . . , an} of n distinct items, and ﬁnds a hash function that is pretty good for S.
+
+To this end, assume that for every positive integer m, there exists a universal family Hm of
+hash functions mapping from U to {0, . . . , m − 1}. You may assume that you can choose h ∈ Hm
+uniformly at random in time O(1), and that you can evaluate h at any point a ∈ U in time O(1).
+On input S as above, your algorithm should ﬁnd m and h ∈ Hm such that h is pretty good for
+
+S. The value m and the expected running time of your algorithm should be O(n).
+
+NOTE: recall that “Hm is universal” means that for every a, b ∈ U such that a (cid:54)= b, if we choose
+
+h ∈ Hm uniformly at random, then h(a) = h(b) with probability at most 1/m.
+
+HINT: Markov’s inequality may be helpful.
+
+Problem 3
+
+We say that a sequence of real numbers a1, . . . , ak is a track if consecutive numbers diﬀer by at
+most 1, i.e., |ai − ai+1| ≤ 1 for all i = 1, . . . , k − 1. For example,
+
+is a track.
+
+9, 8, 8.9, 9.5, 10.4, 10, 10
+
+(a) Give an algorithm that takes as input a sequence x1, . . . , xn of n real numbers and outputs
+the length of the longest subsequence xi1, . . . , xik (where 1 ≤ i1 < i2 < · · · < ik ≤ n) that
+forms a track. Your algorithm should run in time O(n2).
+
+What is the space requirement of your algorithm?
+
+(b) Give an algorithm for the same task with the improved running time of O(n), assuming that
+
+xi ∈ {0, . . . , 42n} for i = 1, . . . , n.
+
+3
+
+Problem 4
+
+You are given a directed acyclic graph G = (V, E) with n vertices and m edges, along with two
+distinguished vertices s, t ∈ V . At each vertex v ∈ V , there are a number of stones q(v) (so q(v) is
+a nonnegative integer). Your goal is to ﬁnd a path from s to t, picking up stones along the way, and
+arrive at t with as many stones as possible. At each node v along the path, you are allowed to pick
+up at most q(v) stones (and for simplicity, assume that q(t) = 0). However, there is a complication:
+each edge e ∈ E has a capacity c(e) (which is a positive integer), and you are not allowed to carry
+more than c(e) stones across that edge.
+
+Design an eﬃcient algorithm to solve this problem. The input is G (in sparse representation)
+and vectors q and c representing the stone counts and capacities as above. The output should be
+an optimal path from s to t, and for every vertex along the path, your output should include the
+number of stones to be picked up at that vertex. Include an analysis of the running time. For full
+credit, your algorithm should run in time O(n + m).
+
+NOTE: You may want to ﬁrst solve a variant of the above problem in which at each vertex, in
+addition to picking up stones, you may also throw some stones away. Partial credit will be given
+for a solution to this variant.
+
+Problem 5
+
+The city of Brombus has n subway stations v1, . . . , vn and k subway systems B1, . . . , Bk. Each
+system Bj has the following structure: there is a ﬁxed entrance fee pj to enter Bj (from any station
+vi), and there is a set of fares wj(vi, vt) to go from station vi to station vt on system Bj. We assume
+that each entrance fee pj is a positive number, and that each fare wj(vi, vt) is a positive number or
+∞.
+
+When traveling from vi to vt from the street, one can enter any subway system Bj, pay admission
+pj, travel to some intermediate city v(cid:96) by paying the fare wj(vi, v(cid:96)), and then (if necessary) repeat
+the same process, using either a diﬀerent subway system (and paying its entrance fee), or using the
+same subway system (without needing to pay the entrance fee again), until one reaches the desired
+destination vt.
+
+Design an algorithm that takes as input the entrance fee and fare data as above, and outputs
+a table of values Mit for i, t = 1, . . . , n, where Mit is the minimum cost required to get from vi to
+vt. Your algorithm does not need to compute the corresponding routes. State its complexity as a
+function of n and k.
+
+Note: You will given signiﬁcant partial credit for any solution that runs in time polynomial in
+
+n and k, but for full credit, your algorithm should run in time cubic in n and linear in k.
+
+4
+
+Problem 6
+
+A 3CNF formula is a conjunction of clauses where each clause is the disjunction of exactly three
+distinct literals. We say that a 3CNF formula over variables x1, . . . , xn is satisﬁable if there exists
+an assignment of values to x1, . . . , xn from {0, 1} that satisﬁes all clauses in the formula. We deﬁne
+3SAT as the language of all satisﬁable 3CNF formulas. You can assume that 3SAT is NP-complete.
+Say that a 3CNF formula is joker-satisﬁable if there exists an assignment of values to x1, . . . , xn
+from {0, 1, ∗} (with ∗ denoting a “joker” or “wildcard”), with at most one variable being assigned
+a joker, that satisﬁes all clauses in the formula. Here, a clause is satisﬁed if either
+
+• at least one of its variables is assigned a joker, or
+
+• all of its variables are assigned 0 or 1, and the clause is satisﬁed in the usual sense.
+
+Let J3SAT be the language of all joker-satisﬁable 3CNF formulas. Prove that J3SAT is NP-complete.
+
+5
+
+

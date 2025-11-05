@@ -1,0 +1,164 @@
+CSCI-GA.3520-001: Honors Analysis of Algorithms
+
+Final Exam, Dec 15, 2022, 1:00pm-5:00pm
+
+• This is a four hour exam. There are six questions, worth 10 points each. Answer all questions
+
+and all their subparts.
+
+• No access is allowed to textbooks, course notes, any other written or published materials,
+
+any online materials, and any other materials stored on devices.
+
+• In the past years, to pass this exam, one needed to answer 3 or 4 problems well, instead of
+
+answering all the problems poorly.
+
+• You must submit separate answers for separate questions.
+
+• Read the questions carefully. Keep your answers legible, and brief but precise. Assume
+standard results and algorithms (i.e., those taught or referred to in class or homeworks).
+
+• You must prove correctness of your algorithm and prove its time bound unless stated other-
+
+wise. The algorithm can be written in plain English (preferred) or as a pseudo-code.
+
+Best of luck!
+
+1
+
+Problem 1
+
+Let T be a binary tree with n vertices. Assume that the vertices are labeled 1 through n, with the
+root labeled as 1. Assume also arrays left(v) and right(v) that denote, respectively, the left and right
+children of a vertex (with label) v. The convention is that left(v) = 0 when v has no left child and
+similarly right(v) = 0 when v has no right child. For every vertex v, there is a non-negative value
+val(v) associated with it. Let 1 (cid:54) k (cid:54) n be a given integer. Design a polynomial time algorithm to
+ﬁnd a subtree H with maximum total value such that
+
+• Root 1 ∈ H
+
+• H has k vertices.
+
+The total value of H is the sum of values of all vertices in it. H must contain the root.
+
+We note that a subtree is just a connected subgraph of T . A related but diﬀerent notion is tree(v),
+which, for a vertex v, denotes the entire subtree rooted at v consisting of v and all its descendants
+(chidren, their children, and so on).
+
+Problem 2
+
+Suppose you are storing a stack in an array. That is, a stack with elements x1, . . . , xs, from the
+bottom to the top, is stored as the ﬁrst s elements A[1], . . . , A[s] in an array of size k, where s (cid:54) k
+and the remaining k − s array locations are empty.
+
+However, you want to be space eﬃcient. So if the stack holds s items it is to be stored in an array
+of size O(s). That is, in the above notation, k must be O(s) at all times.
+
+Suppose you can request the memory management system to provide a new empty array of any
+requested size and it will do so in O(1) time. You will have to copy the contents of the current
+array into the new array (this takes time proportional to the size of the new array) and then return
+the previous array to the memory management system (this takes O(1) time).
+
+Show how to maintain an initially empty stack S under a series of n pops and pushes, in time O(n)
+in total, while maintaining space eﬃciency at all times. Each pop and push involves only a single
+element.
+
+Hint: Use amortization and an appropriate potential function.
+
+2
+
+Problem 3
+
+1. Consider the recurrence relation (C is a ﬁxed constant)
+
+T (n) (cid:54) 2 · T
+
+(cid:17)
+
+(cid:16) n
+2
+
++ Cn log n.
+
+Show that T (n) is O(n log2 n).
+
+2. Let A[1], . . . , A[n] be an array of integers; they could be either negative or positive or mixed.
+Give an O(n log2 n) algorithm to ﬁnd a consecutive subarray A[i : j], 1 (cid:54) i (cid:54) j (cid:54) n, for which
+(cid:80)j
+
+(cid:80)j
+
+h=i A[h] is closest to 0, i.e. minimizing
+
+h=i A[h]
+
+(cid:12)
+(cid:12)
+(cid:12).
+
+(cid:12)
+(cid:12)
+(cid:12)
+
+Problem 4
+
+You are given a directed graph G = (V, E) with non-negative edge weights wt(u, v) representing
+the time it takes to go from a vertex u to v if there is a u to v edge. The graph is given in the
+adjacency list representation. Some subset F ⊆ V of vertices are pharmacies, while some other
+(disjoint) subset D ⊆ V are doctor’s oﬃces. You live at a node s ∈ V, s (cid:54)∈ F ∪ D, your mother lives
+at a node t ∈ V, t (cid:54)∈ F ∪ D and she has a medical emergency. You now need to go to some doctor’s
+oﬃce d ∈ D for a prescription for a drug, then to some pharmacy f ∈ F to purchase the drug, and
+ﬁnally to t to deliver the drug to your mother.
+
+1. Design an eﬃcient algorithm to ﬁnd the route with the least total weight. Speciﬁcally, design
+a weighted graph G(cid:48) such that the answer reduces to a single call to Dijkstra algorithm on
+G(cid:48). Explicitly deﬁne G(cid:48), and compute upper bounds on its number of vertices n(cid:48) and edges
+m(cid:48) as functions of n = |V | and m = |E| of the original graph. State the ﬁnal run-time of your
+algorithm (as a function of n and m).
+
+2. Now suppose that the graph G(V, E) is acyclic. Design an O(m + n) time algorithm for the
+same task. Replace Dijksta’s algorithm earlier by an appropriate O(m + n) algorithm to solve
+the problem (for the special case when G is acyclic, G(cid:48) should also be acyclic). Justify why
+your algorithm works.
+
+3
+
+Problem 5
+
+A 3-uniform hypergraph H(V, E) consists of a set of vertices V and a set of hyperedges E; let
+n = |V | and m = |E|. Each hyperedge e ∈ E is a size 3 subset of V (i.e. it is a triple of vertices).
+
+A {red, blue}-vertex coloring is a map Φ : V → {red, blue}. Given such a coloring, an edge e is said
+to be properly colored if it has exactly one red vertex and two blue vertices.
+
+Show that there exists a {red, blue}-vertex coloring Φ that properly colors (at least) 4m
+
+9 hyperedges.
+Give a polynomial time randomized algorithm that ﬁnds such a coloring. Speciﬁcally, your algo-
+rithm should output, with probability (at least) 0.99, a coloring that properly colors at least 4m
+9
+hyperedges.
+
+Problem 6
+
+Recall that an instance ψ of 3SAT consists of n Boolean variables x1, . . . , xn and m clauses
+C1, . . . , Cm where every clause is of the type (cid:96)i ∨ (cid:96)j ∨ (cid:96)k, i, j, k are distinct, and (cid:96)i is a literal,
+either xi or xi. A Boolean assignment to the variables is called satisfying if it satisﬁes every clause.
+Let K be a ﬁxed constant (e.g. K = 20). An instance ϕ of K-Bounded Occurrence 3SAT
+(K-BO-3SAT for short) is similar except for these conditions:
+
+• Every literal (cid:96)i occurs in at most K clauses.
+
+• Clauses of size one and two are allowed (i.e. clauses of form (cid:96)i and of form (cid:96)i ∨ (cid:96)j).
+
+Let
+
+K-BO-3SAT = { ϕ | ϕ is a K-BO-3SAT instance that has a satisfying assignment}.
+
+Show that K-BO-3SAT is NP-complete. The speciﬁc value of K is not important (i.e. up to you to
+choose) as long as it is a ﬁxed constant.
+
+4
+
+
