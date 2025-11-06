@@ -1,5 +1,13 @@
 # Hons Algos
 
+[English](README_EN.md) | [中文](README.md)
+
+## 介绍
+
+NYU CSCI-GA.3520-001 Honors Analysis of Algorithms（荣誉算法分析）是 Courant 数学科学研究所计算机科学博士项目的唯一一门必修课，也是 Qualifying Exam (QE) 的一部分。这个仓库包含了 Honors Algorithms 从 2005 到 2024 年共 20 年的考试试题，并附加了在考前一个月针对考试进行复习的计划。
+
+## 仓库内容
+
 本仓库存放 Honors Analysis of Algorithms（算法综合考试）复习资料与整理内容：
 - 历年试题（PDF 与提取文本）位于 `resources/exams/`
 - 按考纲主题归类的题库索引：`resources/exams/exam_topic_catalog.md`
