@@ -17,7 +17,7 @@
 知识点:
 - 渐进时间复杂度
 - 如何写出分治法的递归公式
-- 基于递归公式的主定理(及其证明)(https://skywt.cn/blog/master-theorem)
+- 基于递归公式的主定理(https://skywt.cn/blog/master-theorem)
     - 如何理解主定理
     - 主定理的证明
     - 使用主定理来计算算法的时间复杂度
